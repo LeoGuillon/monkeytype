@@ -3,8 +3,8 @@
 // oxlint-disable ban-ts-comment
 //@ts-nocheck too many errors from 3rd party ad code
 
-import Config from "../config";
-import * as ActivePage from "../states/active-page";
+import { Config } from "../config/store";
+import { getActivePage } from "../states/core";
 import * as TestState from "../test/test-state";
 
 // Step 1: Create the Ramp Object, NOTE: selector id needed for tagged units only
@@ -207,7 +207,7 @@ function getUnits(): unknown {
 
 export async function reinstate(): boolean {
   if (!rampReady) return;
-  if (ActivePage.get() === "test" && !TestState.resultVisible) {
+  if (getActivePage() === "test" && !TestState.resultVisible) {
     ramp.destroyUnits("all");
     return;
   }
